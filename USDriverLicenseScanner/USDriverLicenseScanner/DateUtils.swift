@@ -27,8 +27,8 @@ class DateUtils: NSObject {
      
      - returns: NSTImeZone or nil, If failed to specify one
      */
-    static func defaultTimeZone() -> NSTimeZone? {
-        return NSTimeZone.localTimeZone()
+    static func defaultTimeZone() -> TimeZone? {
+        return TimeZone.current
     }
     
     /**
@@ -42,8 +42,8 @@ class DateUtils: NSObject {
      
      - returns: NSTimeZone
      */
-    static func selectedTimeZone(timeZone: NSTimeZone?) -> NSTimeZone {
-        return timeZone ?? defaultTimeZone() ?? NSTimeZone.localTimeZone()
+    static func selectedTimeZone(_ timeZone: TimeZone?) -> TimeZone {
+        return timeZone ?? defaultTimeZone() ?? TimeZone.current
     }
     
     /**
@@ -54,8 +54,8 @@ class DateUtils: NSObject {
     
     - returns: String
     */
-    static func stringFromDate(date: NSDate?, Format formatString: String = "MMddyyyy", TimeZone timeZone: NSTimeZone? = nil, Locale locale: NSLocale? = nil) -> String {
-        let formatter = NSDateFormatter()
+    static func stringFromDate(_ date: Date?, Format formatString: String = "MMddyyyy", TimeZone timeZone: TimeZone? = nil, Locale locale: Locale? = nil) -> String {
+        let formatter = DateFormatter()
         formatter.timeZone = selectedTimeZone(timeZone)
         formatter.dateFormat = formatString
         if locale != nil {
@@ -65,13 +65,13 @@ class DateUtils: NSObject {
         var string = ""
         
         if let _date = date {
-            string = formatter.stringFromDate(_date)
+            string = formatter.string(from: _date)
         }
         
         return string
     }
     
-    static func stringFromDate(date: NSDate?, Format format: DateFormats, TimeZone timeZone: NSTimeZone? = nil, Locale locale: NSLocale? = nil) -> String {
+    static func stringFromDate(date: Date?, Format format: DateFormats, TimeZone timeZone: TimeZone? = nil, Locale locale: Locale? = nil) -> String {
         return stringFromDate(date, Format: format.rawValue, TimeZone: timeZone, Locale: locale)
     }
     
@@ -83,14 +83,14 @@ class DateUtils: NSObject {
     
     - returns: NSDate
     */
-    static func dateFromString(dateString: String, Format formatString: String = "MMddyyyy", TimeZone timeZone: NSTimeZone? = nil) -> NSDate? {
+    static func dateFromString(_ dateString: String, Format formatString: String = "MMddyyyy", TimeZone timeZone: TimeZone? = nil) -> Date? {
         
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.timeZone = selectedTimeZone(timeZone)
         formatter.dateFormat = formatString
         
         if !dateString.isEmpty {
-            if let date = formatter.dateFromString(dateString) {
+            if let date = formatter.date(from: dateString) {
                 return date
             }
         }
@@ -98,7 +98,7 @@ class DateUtils: NSObject {
         return nil
     }
     
-    static func dateFromString(dateString: String, Format format: DateFormats, TimeZone timeZone: NSTimeZone? = nil) -> NSDate? {
+    static func dateFromString(_ dateString: String, Format format: DateFormats, TimeZone timeZone: TimeZone? = nil) -> Date? {
         return dateFromString(dateString, Format: format.rawValue, TimeZone: timeZone)
     }
 }

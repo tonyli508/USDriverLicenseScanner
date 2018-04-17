@@ -25,8 +25,8 @@ public class DriverLicense: CustomStringConvertible {
     public var lastName: String?
     public var licenseNumber: String?
     public var licenseState: String?
-    public var dateOfBirth: NSDate?
-    public var dateOfExpiry: NSDate?
+    public var dateOfBirth: Date?
+    public var dateOfExpiry: Date?
     public var licenseCheckStatus: String?
     public var country: String = "US"
     
@@ -45,12 +45,11 @@ public class DriverLicense: CustomStringConvertible {
         } else {
             
             let names = readStringFrom(infoPairs, forKey: DriverLicense.GIVEN_NAMES_KEY)
-            
-            let namesArray = names.componentsSeparatedByString(" ")
+            let namesArray = names.components(separatedBy: " ")
             
             if namesArray.count > 1 {
                 firstName = namesArray[0]
-                middleName = namesArray[namesArray.startIndex.advancedBy(1)]
+                middleName = namesArray[1]
             }
         }
 
@@ -67,7 +66,7 @@ public class DriverLicense: CustomStringConvertible {
         }
     }
     
-    private func readStringFrom(pairs: [String: String], forKey: String) -> String {
+    private func readStringFrom(_ pairs: [String: String], forKey: String) -> String {
         
         if let value = pairs[forKey] {
             return value
@@ -96,7 +95,7 @@ public class DriverLicense: CustomStringConvertible {
     
     public var description: String {
         get {
-            return "fristName: \(firstName), middleName: \(middleName), lastName: \(lastName), licenseNumber: \(licenseNumber), licenseState: \(licenseState), dateOfBirth: \(dateOfBirth), dateOfExpiry: \(dateOfExpiry)"
+            return "fristName: \(String(describing: firstName)), middleName: \(String(describing: middleName)), lastName: \(String(describing: lastName)), licenseNumber: \(String(describing: licenseNumber)), licenseState: \(String(describing: licenseState)), dateOfBirth: \(String(describing: dateOfBirth)), dateOfExpiry: \(String(describing: dateOfExpiry))"
         }
     }
 }

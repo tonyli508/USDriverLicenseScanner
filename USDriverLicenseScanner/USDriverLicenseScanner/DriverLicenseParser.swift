@@ -27,8 +27,8 @@ public class DriverLicenseParser: NSObject {
         
         var startIndex = -1
         
-        if let range = codeString.rangeOfString("@[^A-Za-z0-9]+ANSI", options: .RegularExpressionSearch) {
-            startIndex = codeString.startIndex.distanceTo(range.startIndex)
+        if let range = codeString.range(of: "@[^A-Za-z0-9]+ANSI", options: .regularExpression, range: nil, locale: nil) {
+            startIndex = codeString.distance(from: codeString.startIndex, to: range.lowerBound)
         }
         
         return startIndex == 0
@@ -54,17 +54,18 @@ public class DriverLicenseParser: NSObject {
         return DriverLicense(FromScanedInfoPairs: pairs)
     }
     
-    private func readLines(string: String) -> [String] {
-        return string.componentsSeparatedByString("\n")
+    private func readLines(_ string: String) -> [String] {
+        return string.components(separatedBy: "\n")
     }
     
-    private func readPairFromLine(line: String) {
-        if line.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > KEY_LENGTH {
-            let index = line.startIndex.advancedBy(KEY_LENGTH)
-            let key = line.substringToIndex(index)
-            let value = line.substringFromIndex(index)
+    private func readPairFromLine(_ line: String) {
+        if line.lengthOfBytes(using: .utf8) > KEY_LENGTH {
+            let index = line.index(line.startIndex, offsetBy: KEY_LENGTH)
             
-            pairs[key] = value.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let key = String(line[..<index])
+            let value = String(line[index...])
+            
+            pairs[key] = value.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         }
     }
 }

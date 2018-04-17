@@ -10,12 +10,12 @@ enum SpinnerViewStyle {
     /// Loading style for background color
     var backgroundColor: UIColor {
         switch self {
-        case White:
+        case .White:
             return UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        case Black:
+        case .Black:
             return UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 0.5)
-        case Clear:
-            return UIColor.clearColor()
+        case .Clear:
+            return UIColor.clear
         }
     }
 }
@@ -27,7 +27,7 @@ extension UIView {
     private func getPreviousSpinner(parentView: UIView) -> BaseSpinnerView? {
         
         for subview in parentView.subviews {
-            if let spinner = subview as? BaseSpinnerView where spinner.tag == BaseSpinnerView.UNIQUE_SPINNER_VIEW_TAG {
+            if let spinner = subview as? BaseSpinnerView, spinner.tag == BaseSpinnerView.UNIQUE_SPINNER_VIEW_TAG {
                 return spinner
             }
         }
@@ -41,7 +41,7 @@ extension UIView {
      */
     func startSpinning(style: SpinnerViewStyle = .Black) {
         
-        let spinner = getPreviousSpinner(self) ?? IndicatorSpinnerView(parentView: self, style: style)
+        let spinner = getPreviousSpinner(parentView: self) ?? IndicatorSpinnerView(parentView: self, style: style)
         spinner.startSelfSpinning()
     }
     
@@ -53,7 +53,7 @@ extension UIView {
      */
     func startSpinning(animationImage: UIImage, style: SpinnerViewStyle = .Black) {
         
-        let spinner = getPreviousSpinner(self) ?? ImageSpinnerView(parentView: self, animationImage: animationImage, style: style)
+        let spinner = getPreviousSpinner(parentView: self) ?? ImageSpinnerView(parentView: self, animationImage: animationImage, style: style)
         spinner.startSelfSpinning()
     }
     
@@ -63,7 +63,7 @@ extension UIView {
      - parameter style: SpinnerViewStyle
      */
     func startLoading(style: SpinnerViewStyle = .Black) {
-        self.startSpinning(style)
+        self.startSpinning(style: style)
     }
     
     /**
@@ -71,7 +71,7 @@ extension UIView {
      */
     func stopSpinning() {
         
-        self.getPreviousSpinner(self)?.stopSelfSpinning()
+        self.getPreviousSpinner(parentView: self)?.stopSelfSpinning()
     }
 }
 
@@ -91,23 +91,23 @@ class BaseSpinnerView: UIView {
     required init(parentView: UIView, style: SpinnerViewStyle = .Black) {
         super.init(frame: parentView.bounds)
         
-        self.hidden = true
+        self.isHidden = true
         self.backgroundColor = style.backgroundColor
         self.tag = BaseSpinnerView.UNIQUE_SPINNER_VIEW_TAG
         
         parentView.addSubview(self)
         
         self.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat("H:|-[view(==container)]-|",
-                options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: [
+            NSLayoutConstraint.constraints(withVisualFormat: "H:|-[view(==container)]-|",
+                                           options: NSLayoutFormatOptions.alignAllCenterY, metrics: nil, views: [
                     "view": self,
                     "container": parentView
                 ])
         )
         
         self.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat("V:|-[view(==container)]-|",
-                options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: [
+            NSLayoutConstraint.constraints(withVisualFormat: "V:|-[view(==container)]-|",
+                                           options: NSLayoutFormatOptions.alignAllCenterX, metrics: nil, views: [
                     "view": self,
                     "container": parentView
                 ])
@@ -120,8 +120,8 @@ class BaseSpinnerView: UIView {
     */
     func startSelfSpinning() {
         
-        self.superview?.bringSubviewToFront(self)
-        self.hidden = false
+        self.superview?.bringSubview(toFront: self)
+        self.isHidden = false
     }
     
     /**
@@ -129,7 +129,7 @@ class BaseSpinnerView: UIView {
      override this to make custom spinner action
      */
     func stopSelfSpinning() {
-        self.hidden = true
+        self.isHidden = true
     }
 }
 
@@ -139,7 +139,7 @@ class IndicatorSpinnerView: BaseSpinnerView {
     
     required init(parentView: UIView, style: SpinnerViewStyle = .Black) {
         
-        let indicatorViewStyle = style == .Black ? UIActivityIndicatorViewStyle.White : UIActivityIndicatorViewStyle.Gray
+        let indicatorViewStyle = style == .Black ? UIActivityIndicatorViewStyle.white : UIActivityIndicatorViewStyle.gray
         let defaultSpinnerSize: CGFloat = 40.0
         
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: indicatorViewStyle)
@@ -150,15 +150,15 @@ class IndicatorSpinnerView: BaseSpinnerView {
         self.addSubview(activityIndicator)
         
         self.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat("H:|-[indicator(=\(defaultSpinnerSize))]-|",
-                options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: [
+            NSLayoutConstraint.constraints(withVisualFormat: "H:|-[indicator(=\(defaultSpinnerSize))]-|",
+                options: NSLayoutFormatOptions.alignAllCenterY, metrics: nil, views: [
                     "indicator": activityIndicator
                 ])
         )
         
         self.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat("V:|-[indicator(=\(defaultSpinnerSize))]-|",
-                options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: [
+            NSLayoutConstraint.constraints(withVisualFormat: "V:|-[indicator(=\(defaultSpinnerSize))]-|",
+                options: NSLayoutFormatOptions.alignAllCenterX, metrics: nil, views: [
                     "indicator": activityIndicator
                 ])
         )
@@ -166,7 +166,7 @@ class IndicatorSpinnerView: BaseSpinnerView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
         super.init(coder: aDecoder)
     }
     
@@ -192,10 +192,10 @@ class ImageSpinnerView: BaseSpinnerView {
         
         let frameView = UIView()
         let loadingImage = animationImage
-        let frame : CGRect = CGRectMake(0.0, 0.0, loadingImage.size.width, loadingImage.size.height)
+        let frame : CGRect = CGRect(x: 0, y: 0, width: loadingImage.size.width, height: loadingImage.size.height)
         
         animationLayer.frame = frame
-        animationLayer.contents = loadingImage.CGImage
+        animationLayer.contents = loadingImage.cgImage
         animationLayer.masksToBounds = true
         
         frameView.layer.addSublayer(animationLayer)
@@ -206,15 +206,15 @@ class ImageSpinnerView: BaseSpinnerView {
         self.addSubview(frameView)
         
         self.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat("H:|-[indicator(=28)]-|",
-                options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: [
+            NSLayoutConstraint.constraints(withVisualFormat: "H:|-[indicator(=28)]-|",
+                                                           options: NSLayoutFormatOptions.alignAllCenterY, metrics: nil, views: [
                     "indicator": frameView
                 ])
         )
         
         self.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat("V:|-[indicator(=28)]-|",
-                options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: [
+            NSLayoutConstraint.constraints(withVisualFormat: "V:|-[indicator(=28)]-|",
+                                           options: NSLayoutFormatOptions.alignAllCenterX, metrics: nil, views: [
                     "indicator": frameView
                 ])
         )
@@ -244,30 +244,30 @@ class ImageSpinnerView: BaseSpinnerView {
         let rotation : CABasicAnimation = CABasicAnimation(keyPath:"transform.rotation.z")
         
         rotation.duration = 1.0
-        rotation.removedOnCompletion = false
+        rotation.isRemovedOnCompletion = false
         rotation.repeatCount = HUGE
         rotation.fillMode = kCAFillModeForwards
-        rotation.fromValue = NSNumber(float: 0.0)
-        rotation.toValue = NSNumber(double: M_PI * 2.0)
+        rotation.fromValue = NSNumber(value: 0.0)
+        rotation.toValue = NSNumber(value: Double.pi * 2.0)
         
-        layer.addAnimation(rotation, forKey: "rotate")
+        layer.add(rotation, forKey: "rotate")
     }
     
-    private func pause(layer layer : CALayer) {
+    private func pause(layer : CALayer) {
         
         layer.speed = 0.0
         
-        let pausedTime = layer.convertTime(CACurrentMediaTime(), fromLayer: nil)
+        let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
         layer.timeOffset = pausedTime
     }
     
-    private func resume(layer layer : CALayer) {
+    private func resume(layer : CALayer) {
         let pausedTime : CFTimeInterval = layer.timeOffset
         
         layer.speed = 1.0
         layer.timeOffset = 0.0
         
-        let timeSincePause = layer.convertTime(CACurrentMediaTime(), fromLayer: nil) - pausedTime
+        let timeSincePause = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
         layer.beginTime = timeSincePause
     }
 }
