@@ -9,10 +9,17 @@ USDriverLicenseScanner is a library for scanning US driver license details from 
 * Implement `func didScanResult(driverInfo: DriverLicense)` (it will be callbacked with driver license info, once scanned)
 * Show scanner view
 ```swift
-let scanner = ScanDriverLicenseViewController(title: "Scan Driver License", focusDesc: "Align with the barcode on the back of your license.", detailDesc: "By adding my license, I consent to a standard driver record check, powered by Checkr")
+/// create
+let scanner = ScanDriverLicenseViewController(
+	title: "Scan Driver License", 
+	focusDesc: "Align with the barcode on the back of your license.", 
+	detailDesc: "By adding my license, I consent to a standard driver record check, powered by Checkr")
+/// delegate
 scanner.delegate = self
+/// add cancel button
 let navigation = UINavigationController(rootViewController: scanner)
 scanner.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(dismissSelf))
+/// show
 self.present(navigation, animated: true, completion: nil)
 ```
 Or check out the example app.
