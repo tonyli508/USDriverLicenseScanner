@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1029A0D820875DCE00C72924 /* USDriverLicenseScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1029A0D720875DCE00C72924 /* USDriverLicenseScanner.framework */; };
-		1029A0D920875DCF00C72924 /* USDriverLicenseScanner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1029A0D720875DCE00C72924 /* USDriverLicenseScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1029A0CF20865CC300C72924 /* USDriverLicenseScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1029A0CA20865BC100C72924 /* USDriverLicenseScanner.framework */; };
+		1029A0D020865CC300C72924 /* USDriverLicenseScanner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1029A0CA20865BC100C72924 /* USDriverLicenseScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		394814661D874556006E8F9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394814651D874556006E8F9C /* AppDelegate.swift */; };
 		394814681D874556006E8F9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394814671D874556006E8F9C /* ViewController.swift */; };
 		3948146B1D874556006E8F9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 394814691D874556006E8F9C /* Main.storyboard */; };
@@ -18,13 +18,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1029A0DA20875DCF00C72924 /* Embed Frameworks */ = {
+		1029A0D120865CC300C72924 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1029A0D920875DCF00C72924 /* USDriverLicenseScanner.framework in Embed Frameworks */,
+				1029A0D020865CC300C72924 /* USDriverLicenseScanner.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,7 +33,7 @@
 
 /* Begin PBXFileReference section */
 		0890BD62648712F28A0BD7C6 /* Pods_ScannerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScannerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1029A0D720875DCE00C72924 /* USDriverLicenseScanner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = USDriverLicenseScanner.framework; path = Carthage/Build/iOS/USDriverLicenseScanner.framework; sourceTree = "<group>"; };
+		1029A0CA20865BC100C72924 /* USDriverLicenseScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = USDriverLicenseScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		394814621D874556006E8F9C /* ScannerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScannerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		394814651D874556006E8F9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		394814671D874556006E8F9C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1029A0D820875DCE00C72924 /* USDriverLicenseScanner.framework in Frameworks */,
+				1029A0CF20865CC300C72924 /* USDriverLicenseScanner.framework in Frameworks */,
 				DE4DD10C039F5398A0EC5D0C /* Pods_ScannerExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,7 +101,7 @@
 		937C561AFC054D19E3864762 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1029A0D720875DCE00C72924 /* USDriverLicenseScanner.framework */,
+				1029A0CA20865BC100C72924 /* USDriverLicenseScanner.framework */,
 				0890BD62648712F28A0BD7C6 /* Pods_ScannerExample.framework */,
 			);
 			name = Frameworks;
@@ -114,15 +114,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 394814741D874556006E8F9C /* Build configuration list for PBXNativeTarget "ScannerExample" */;
 			buildPhases = (
-				1029A0DC20875F4A00C72924 /* Carthage Warning Outdated */,
 				93D26CD0F228511BE3110A2E /* [CP] Check Pods Manifest.lock */,
 				3948145E1D874556006E8F9C /* Sources */,
 				3948145F1D874556006E8F9C /* Frameworks */,
 				394814601D874556006E8F9C /* Resources */,
 				54C0794D32B8746188648D67 /* [CP] Embed Pods Frameworks */,
 				DAA673F964A89869520A5124 /* [CP] Copy Pods Resources */,
-				1029A0DA20875DCF00C72924 /* Embed Frameworks */,
-				1029A0DB20875E9600C72924 /* Carthage Copy Frameworks */,
+				1029A0D120865CC300C72924 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -181,34 +179,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1029A0DB20875E9600C72924 /* Carthage Copy Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Carthage Copy Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		1029A0DC20875F4A00C72924 /* Carthage Warning Outdated */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Carthage Warning Outdated";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage outdated --xcode-warnings";
-		};
 		54C0794D32B8746188648D67 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -402,7 +372,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ScannerExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -424,7 +394,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ScannerExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
