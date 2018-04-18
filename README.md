@@ -4,6 +4,8 @@
 
 USDriverLicenseScanner is a library for scanning US driver license details from your iPhone camera.
 
+![USDriverLicenseScanner](https://github.com/tonyli508/USDriverLicenseScanner/blob/master/images/screenshot2.png)
+
 ## How to use
 * Make your UIViewController conformed to ScanDriverLicenseViewControllerDelegate
 * Implement `func didScanResult(driverInfo: DriverLicense)` (it will be callbacked with driver license info, once scanned)
@@ -29,9 +31,3 @@ Or check out the example app.
 github "tonyli508/USDriverLicenseScanner" ~> 1.0.0
 ```
 Check out the example code in Carthage branch as well, if you need more details.
-
-Example project screenshots:
-
-<p align="center">
-<img src="https://github.com/tonyli508/USDriverLicenseScanner/blob/master/images/screenshot2.png" alt="Demo Screenshot" width="80" height="143" />
-</p>
