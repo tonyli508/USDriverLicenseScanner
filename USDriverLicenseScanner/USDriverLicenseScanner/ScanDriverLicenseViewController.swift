@@ -14,7 +14,7 @@ public protocol ScanDriverLicenseViewControllerDelegate: class {
     func didScanResult(driverInfo: DriverLicense)
 }
 
-public class ScanDriverLicenseViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class ScanDriverLicenseViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private var boundLayer = ScanBoundaryView()
@@ -240,7 +240,7 @@ public class ScanDriverLicenseViewController: UIViewController, AVCaptureMetadat
     
     // MARK: AVCaptureMetadataOutputObjectsDelegate
     
-    @nonobjc public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         
         session.stopRunning()
         
