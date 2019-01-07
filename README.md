@@ -1,7 +1,6 @@
 # USDriverLicenseScanner
 
-[![Swift][https://img.shields.io/badge/Swift-4.1-orange.svg?style=flat]][https://swift.org]
-[https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat]
+[![Swift](https://img.shields.io/badge/Swift-4.1-orange.svg?style=flat)](https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat)(https://swift.org)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 USDriverLicenseScanner is a library for scanning US driver license details from your iPhone camera.
